@@ -30,8 +30,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
 
-
-
+DEFAULT_FROM_EMAIL = 'contato@eventex.com'
+#PAREI AQUI 39:00
 # Application definition
 
 INSTALLED_APPS = [
@@ -123,6 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = config('EMAIL_BACKEND')

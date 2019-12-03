@@ -18,3 +18,6 @@ class SubscriptionModelTest(TestCase):
     
     def test_created_at(self):
         self.assertIsInstance(self.obj.create_at, datetime)
+    
+    def test_str(self):
+        self.assertEqual('Gustavo Brito', str(self.obj))

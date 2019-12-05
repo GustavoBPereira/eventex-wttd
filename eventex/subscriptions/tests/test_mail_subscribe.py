@@ -29,5 +29,4 @@ class subscribePostValidContent(TestCase):
                     ('21-99358-7250')
                     )
         for content in contents:
-            #PAREI AQUI
             self.assertIn(content, self.email.body)

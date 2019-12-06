@@ -1,12 +1,14 @@
 from django.test import TestCase
 from django.core import mail
+from django.shortcuts import resolve_url as r
+
 
 from eventex.subscriptions.forms import subscriptionForm
 from eventex.subscriptions.models import Subscription
 
-class subscribeGet(TestCase):
+class subscriptionsNewGet(TestCase):
     def setUp(self):
-        self.response = self.client.get('/inscricao/')
+        self.response = self.client.get(r('subscriptions:new'))
     
     def test_get(self):
         self.assertEqual(200, self.response.status_code)
@@ -34,14 +36,14 @@ class subscribeGet(TestCase):
         self.assertIsInstance(form, subscriptionForm)
 
 
-class subscribePostValid(TestCase):
+class subscriptionsNewPostValid(TestCase):
     def setUp(self):
         data = dict(name = 'Gustavo Brito', cpf= '12345678901',
                     email= 'britopereiragustavo@gmail.com', phone='21-99358-7250')
-        self.resp = self.client.post('/inscricao/', data)
+        self.resp = self.client.post(r('subscriptions:new'), data)
     
     def test_post(self):
-        self.assertRedirects(self.resp, '/inscricao/1/')
+        self.assertRedirects(self.resp, r('subscriptions:detail', 1))
         self.assertEqual(302, self.resp.status_code)
     
     def test_send_subscribe_mail(self):
@@ -51,9 +53,9 @@ class subscribePostValid(TestCase):
         self.assertTrue(Subscription.objects.exists())
 
 
-class subscribePostInvalid(TestCase):
+class subscriptionsNewPostInvalid(TestCase):
     def setUp(self):
-        self.resp = self.client.post('/inscricao/', {})
+        self.resp = self.client.post(r('subscriptions:new'), {})
 
     def test_post(self):
         self.assertEqual(200, self.resp.status_code)

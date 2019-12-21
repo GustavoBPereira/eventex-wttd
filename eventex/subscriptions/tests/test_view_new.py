@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core import mail
 from django.shortcuts import resolve_url as r
 
-from eventex.subscriptions.forms import subscriptionForm
+from eventex.subscriptions.forms import SubscriptionForm
 from eventex.subscriptions.models import Subscription
 
 
@@ -32,7 +32,7 @@ class subscriptionsNewGet(TestCase):
 
     def test_has_form(self):
         form = self.response.context['form']
-        self.assertIsInstance(form, subscriptionForm)
+        self.assertIsInstance(form, SubscriptionForm)
 
 
 class subscriptionsNewPostValid(TestCase):
@@ -64,7 +64,7 @@ class subscriptionsNewPostInvalid(TestCase):
 
     def test_has_form(self):
         form = self.resp.context['form']
-        self.assertIsInstance(form, subscriptionForm)
+        self.assertIsInstance(form, SubscriptionForm)
 
     def test_form_has_erros(self):
         form = self.resp.context['form']

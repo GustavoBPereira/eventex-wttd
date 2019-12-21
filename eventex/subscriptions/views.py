@@ -6,7 +6,7 @@ from django.core import mail
 from django.template.loader import render_to_string
 from django.shortcuts import resolve_url as r
 
-from eventex.subscriptions.forms import subscriptionForm
+from eventex.subscriptions.forms import SubscriptionForm
 from eventex.subscriptions.models import Subscription
 
 def new(request):
@@ -18,15 +18,15 @@ def new(request):
 
 def empty_form(request):
     return render(request, 'subscriptions/subscription_form.html',
-                {'form': subscriptionForm()})
+                  {'form': SubscriptionForm()})
 
 
 def create(request):
-    form = subscriptionForm(request.POST)
+    form = SubscriptionForm(request.POST)
     if not form.is_valid():
         return render(request, 'subscriptions/subscription_form.html', {'form': form})
 
-    subscription = Subscription.objects.create(**form.cleaned_data)
+    subscription = form.save()
 
     _send_email('Confirmação de inscrição',
                 settings.DEFAULT_FROM_EMAIL,

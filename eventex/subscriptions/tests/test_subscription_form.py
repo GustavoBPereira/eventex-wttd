@@ -1,10 +1,10 @@
 from django.test import TestCase
-from eventex.subscriptions.forms import subscriptionForm
+from eventex.subscriptions.forms import SubscriptionForm
 
 
 class SubscriptionFormTest(TestCase):
     def test_form_has_fields(self):
-        form = subscriptionForm()
+        form = SubscriptionForm()
         expected = ['name', 'cpf', 'email', 'phone']
         self.assertSequenceEqual(expected, list(form.fields))
 
@@ -27,7 +27,7 @@ class SubscriptionFormTest(TestCase):
         valid = dict(name='Gustavo Brito', cpf='12345678901',
                      email='britopereiragustavo@gmail.com', phone='21-993587250')
         data = dict(valid, **kwargs)
-        form = subscriptionForm(data)
+        form = SubscriptionForm(data)
         form.is_valid()
         return form
 

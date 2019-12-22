@@ -9,11 +9,12 @@ from django.shortcuts import resolve_url as r
 from eventex.subscriptions.forms import SubscriptionForm
 from eventex.subscriptions.models import Subscription
 
+
 def new(request):
     if request.method == 'POST':
         return create(request)
 
-    return empty_form(request)        
+    return empty_form(request)
 
 
 def empty_form(request):
@@ -35,7 +36,7 @@ def create(request):
                 {'subscription': subscription})
 
     messages.success(request, 'Inscrição realizada com sucesso!')
-    
+
     return HttpResponseRedirect(r('subscriptions:detail', subscription.pk))
 
 
@@ -46,9 +47,7 @@ def detail(request, pk):
         raise Http404
 
     return render(request, 'subscriptions/subscription_detail.html',
-                    {'subscription': subscription})
-
-
+                  {'subscription': subscription})
 
 
 def _send_email(subject, from_, to, template_name, context):

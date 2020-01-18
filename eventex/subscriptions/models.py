@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.shortcuts import resolve_url as r
 from eventex.subscriptions.validators import validate_cpf
 
 
@@ -15,6 +15,9 @@ class Subscription(models.Model):
         verbose_name_plural = 'inscrições'
         verbose_name = 'inscrição'
         ordering = ('-created_at',)
+
+    def get_absolute_url(self):
+        return r('subscriptions:detail', self.pk)
 
     def __str__(self):
         return self.name
